@@ -9,7 +9,7 @@
  
     - name: Install some basic packages
       yum:  
-        name: ['telnet', 'net-tools']
+        name: ['telnet', 'net-tools', 'lvm2']
 
     - name: Add repo
       yum:
