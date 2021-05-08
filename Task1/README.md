@@ -98,7 +98,7 @@ defaults/ folder in the following files:
 
 List of volume group and logical volume
 
-![logical_volume_and_volume_group](https://user-images.githubusercontent.com/22845579/117504043-86644d00-af8a-11eb-8708-b9170435dfd8.png)
+![logical_volume_and_volume_group_484x640_300x396](https://user-images.githubusercontent.com/22845579/117537168-ff55ba00-b007-11eb-9e90-084e3e47a850.jpg)
 
 
 On below show creating backup file 
