@@ -60,6 +60,38 @@ Finally backup and restore for postgresql for new database
 ``` bat  
 $ ansible-playbook -i hosts tasks/50_backup_restore.yml
 ```
+# Role Variables
+
+This role has multiple variables. The descriptions and defaults for all these variables can be found in the ansible/tasks folder in the following files:
+
+
+roles/docker/tasks folder in the following files:
+
+| Name           |   Description                         
+| -------------  |   :-------------:          
+|20_packages.yml |   installation telnet,postgresql packages  
+
+
+| Name                             |   Description                         
+| -------------                    |   :-------------:          
+| 40_logical_volume_management.yml |   creating backup directory for LVM  
+
+
+| Name                     |   Description                         
+| -------------            |   :-------------:          
+| 30_configure_postgre.yml |   new user,database adding postgresql database 
+
+
+| Name                  |   Description                         
+| -------------         |   :-------------:          
+| 50_backup_restore.yml |   dump and restore on postgresql
+
+
+defaults/ folder in the following files:
+
+| Name           |   Description                         
+| -------------  |   :-------------:          
+| main.yml       |   define user,password variable
 
 
 # Result
