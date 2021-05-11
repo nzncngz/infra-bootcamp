@@ -34,31 +34,33 @@ $ ssh -i .vagrant/machines/control/virtualbox/private_key vagrant@192.168.135.10
 Disable firewall
 
 ``` bat  
-$ ansible-playbook -i hosts tasks/10_security.yml
+$ ansible-playbook tasks/10_security.yml
 ```
 
 Installation Postgresql and other requirements
 
 ``` bat  
-$ ansible-playbook -i hosts tasks/20_packages.yml
+$ ansible-playbook  tasks/20_packages.yml
 
 ```
 
 Now new user and database creating, set password for new user and all role assign to.
 
 ``` bat  
-$ ansible-playbook -i hosts tasks/30_configure_postgre.yml
+$ ansible-playbook  tasks/30_configure_postgre.yml
 ```
-We want backup database on another file system. It has to be stored with logical volume management.
+We want backup database on another file system. It has to be stored with logical volume management. Database vm must be stopped before the playbook can be run.
+
+The second disk must be added manually via the virtualbox.
 
 ``` bat  
-$ ansible-playbook -i hosts tasks/40_logical_volume_management.yml
+$ ansible-playbook  tasks/40_logical_volume_management.yml
 ```
 
 Finally backup and restore for postgresql for new database
 
 ``` bat  
-$ ansible-playbook -i hosts tasks/50_backup_restore.yml
+$ ansible-playbook tasks/50_backup_restore.yml
 ```
 # Role Variables
 
