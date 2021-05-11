@@ -12,4 +12,4 @@ postgresql_work_mem: "4MB"
 postgresql_log_autovacuum_min_duration: -1
 postgresql_log_min_duration_statement: -1
 backup_directory: /home/vagrant/backup
-
+system_user: vagrant
