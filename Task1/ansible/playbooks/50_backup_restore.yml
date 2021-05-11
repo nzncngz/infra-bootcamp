@@ -1,0 +1,24 @@
+---
+- hosts: all
+  become: yes
+  vars_files:
+    - ../defaults/main.yml
+
+  tasks:
+
+    - name: "Owner chane-ge backup directory"
+      shell: chmod -R og+X /home /home/"{{ system_user }}"
+        
+    - name: "Back up the database" 
+      become: yes
+      postgresql_db:
+        state: dump
+        name: "{{ db_name }}"
+        target: "{{ backup_directory }}/{{ db_name }}.dump"
+
+    - name: "Restore the database"
+      become: yes
+      postgresql_db:
+        state: restore
+        name: "{{ db_name }}"
+        target: "{{ backup_directory }}/{{ db_name }}.dump"
