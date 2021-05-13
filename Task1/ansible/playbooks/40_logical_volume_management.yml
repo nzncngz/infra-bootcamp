@@ -39,7 +39,7 @@
     - name: Create xfs file systems
       filesystem:
         fstype: xfs
-        dev: "/dev/vg_database/{{ item }}"
+        dev: "/dev/mapper/vg_database/{{ item }}"
       with_items:
         - backup_lv
 
@@ -47,7 +47,7 @@
       mount:
         fstype: xfs
         path: "{{ backup_directory }}"
-        src: "/dev/vg_database/{{ item.lvol }}"
+        src: "/dev/mapper/vg_database-{{ item.lvol }}"
         opts: noatime
         state: mounted
       with_items:
