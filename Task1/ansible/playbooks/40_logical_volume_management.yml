@@ -47,11 +47,11 @@
       mount:
         fstype: xfs
         path: "{{ backup_directory }}"
-        src: "/dev/mapper/vg_database-{{ item.lvol }}"
+        src: "/dev/mapper/vg_database-{{ item }}"
         opts: noatime
         state: mounted
       with_items:
-        - lvol: backup_lv
+        - backup_lv
           
     - name: Rebooting...
       reboot:
