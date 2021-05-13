@@ -39,7 +39,7 @@
     - name: Create xfs file systems
       filesystem:
         fstype: xfs
-        dev: "/dev/mapper/vg_database/{{ item }}"
+        dev: "/dev/mapper/vg_database-{{ item }}"
       with_items:
         - backup_lv
 
