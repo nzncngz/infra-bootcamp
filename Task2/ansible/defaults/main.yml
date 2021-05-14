@@ -12,7 +12,7 @@ minio_always_update_binary: false
 minio_setup_logging: true
 minio_setup_logrotate: true
 minio_setup_firewall: false
-minio_tune_kernel: true
+minio_kernel_tuning: true
 minio_tune_kernel_values:
   - { name: "net.ipv4.tcp_fin_timeout", value: 30 }
   - { name: "net.ipv4.tcp_keepalive_probes", value: 5 }
