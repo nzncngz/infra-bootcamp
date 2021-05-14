@@ -95,6 +95,12 @@ defaults/ folder in the following files:
 | -------------  |   :-------------:          
 | main.yml       |   define user,password variable
 
+templates/ folder in the following files:
+
+| Name               |   Description                         
+| -------------      |   :-------------:          
+| postgresql.conf.j2 |   setting tunning parameters
+
 
 # Result
 
