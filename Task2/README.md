@@ -50,11 +50,19 @@ The second disk must be manually added via virtual box on 3 vm with centos OS. W
 ``` bat  
 $ ansible-playbook  playbooks/30_logical_volume_management.yml
 ```
-We will install a minio server by downloading the easkay.minio role via ansible galaxy.
+We will define roles minio server by downloading the easkay.minio role via ansible galaxy. 
 
 ``` bat  
-$ ansible-playbook playbooks/50_backup_restore.yml
+$ sudo ansible-galaxy install -r requirements.yml
 ```
+
+Now we install minio server with roles/easkay.minio. While the installation is done tuning, logging, log rotate operations will be applied for the minio.
+
+
+``` bat  
+$ ansible-playbook  playbooks/40_install_minio_server.yml
+```
+
 # Role Variables
 
 This role has multiple variables. The descriptions and defaults for all these variables can be found in the ansible/playbooks folder in the following files:
@@ -69,51 +77,47 @@ This role has multiple variables. The descriptions and defaults for all these va
 
 | Name                             |   Description                         
 | -------------                    |   :-------------:          
-| 40_logical_volume_management.yml |   creating backup directory for LVM  
+| 30_logical_volume_management.yml |   creating file system with LVM  
 
 
-| Name                     |   Description                         
-| -------------            |   :-------------:          
-| 30_configure_postgre.yml |   new user,database adding postgresql database 
+| Name               |   Description                         
+| -------------      |   :-------------:          
+| requirements.yml   |  define minio role with ansible galaxy 
 
 
-| Name                  |   Description                         
-| -------------         |   :-------------:          
-| 50_backup_restore.yml |   dump and restore on postgresql
+| Name                    |   Description                         
+| -------------           |   :-------------:          
+| 40_install_minio_server |   installation minio server 
+
 
 
 defaults/ folder in the following files:
 
 | Name           |   Description                         
 | -------------  |   :-------------:          
-| main.yml       |   define user,password variable
+| main.yml       |   define tuning parameter,logrotate and logging for minio service
 
-templates/ folder in the following files:
 
-| Name               |   Description                         
-| -------------      |   :-------------:          
-| postgresql.conf.j2 |   setting tunning parameters
 
 
 # Result
 
-List of volume group and logical volume
+List of file system
 
-![logical_volume_and_volume_group_484x640_300x396](https://user-images.githubusercontent.com/22845579/117537168-ff55ba00-b007-11eb-9e90-084e3e47a850.jpg)
+![Screenshot from 2021-05-15 00-53-53](https://user-images.githubusercontent.com/22845579/118335328-115bbf00-b518-11eb-84db-bde630d4e2f4.png)
 
 
-On below show creating backup file 
+On below show minio service status
 
-![result_postgre_backup](https://user-images.githubusercontent.com/22845579/117503838-36858600-af8a-11eb-9c35-9cc4cbbc0b41.png)
-
+![service](https://user-images.githubusercontent.com/22845579/118335398-3f410380-b518-11eb-902b-26c4fc1915bd.png)
 
 
 # Reference
 
-https://stribny.name/blog/ansible-postgresql-backups/
+https://github.com/easkay/ansible-minio
 
-https://www.happycoders.eu/devops/ansible-tutorial-setup-docker-mysql-wordpress/
+https://github.com/husnusensoy/infra-bootcamp
 
-https://github.com/azavea/ansible-postgresql
+https://galaxy.ansible.com/tklo/minio
 
-https://www.postgresqltutorial.com/postgresql-list-users/
+
