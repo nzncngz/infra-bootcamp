@@ -1,0 +1,33 @@
+---
+system_user: vagrant
+# Globals across nodes and tenants
+minio_name_separator: "-"
+minio_user: minio
+minio_download_url: https://dl.minio.io/server/minio/release/linux-amd64/minio
+minio_download_dir: /tmp
+minio_working_dir: /usr/local
+minio_binary_dir: /usr/local/bin
+minio_log_dir: /var/log/minio
+minio_always_update_binary: false
+minio_setup_logging: true
+minio_setup_logrotate: true
+minio_setup_firewall: false
+minio_tune_kernel: true
+minio_tune_kernel_values:
+  - { name: "net.ipv4.tcp_fin_timeout", value: 30 }
+  - { name: "net.ipv4.tcp_keepalive_probes", value: 5 }
+  - { name: "net.core.wmem_max", value: 540000 }
+  - { name: "net.core.rmem_max", value: 540000 }
+  - { name: "vm.swappiness", value: 10 }
+  - { name: "vm.dirty_background_ratio", value: 1 }
+  - { name: "vm.dirty_ratio", value: 5 }
+  - { name: "kernel.sched_min_granularity_ns", value: 10000000 }
+  - { name: "kernel.sched_wakeup_granularity_ns", value: 15000000 }
+minio_instances:
+ - name: service
+   bind_address: 0.0.0.0
+   bind_port: 9000
+   volumes: ["/mnt/disks/data1", "/mnt/disks/data2", "/mnt/disks/data3", "/mnt/disks/data4", "/mnt/disks/data5", "/mnt/disks/data6", "/mnt/disks/data7", "/mnt/disks/data8"]
+   access_key: theaccesskey
+   secret_key: thesecretkey
+   log_file_name: minio-vm1.log

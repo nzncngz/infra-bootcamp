@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Disable SELinux
+      selinux:  
+        state: disabled
+
+    - name: Tuned Disable and Stop
+      systemd:
+        name: tuned
+        state: stopped
+        enabled: false
+
+
+    - name: Rebooting
+      reboot: 

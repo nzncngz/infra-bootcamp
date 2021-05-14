@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: yes
+  vars_files:
+    - ../defaults/main.yml
+
+  tasks:
+ 
+    - name: Install some basic packages
+      yum:  
+        name: ['telnet', 'net-tools', 'lvm2']
+
