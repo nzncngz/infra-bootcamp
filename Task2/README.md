@@ -46,7 +46,7 @@ $ ansible-playbook  playbooks/20_packages.yml
 
 ```
 
-The second disk must be manually added via virtual box on 3 vm with centos OS. We will create volume groups on the physical disk and  will create 8 logical volumes of 640MB each and mount the file system on it.
+The second disk must be manually added via virtual box on 3 vm with centos OS. We will create volume groups on the physical disk and  will create 8 logical volumes of 640MB each and mount the file system on it. Minio server are running same as Distributed Mode.
 ``` bat  
 $ ansible-playbook  playbooks/30_logical_volume_management.yml
 ```
@@ -103,8 +103,10 @@ defaults/ folder in the following files:
 # Result
 
 List of file system
+Minio service referer three endpoints(http://192.168.135.12,http://192.168.135.13,http://192.168.135.14)
 
-![Screenshot from 2021-05-15 00-53-53](https://user-images.githubusercontent.com/22845579/118335328-115bbf00-b518-11eb-84db-bde630d4e2f4.png)
+![minio](https://user-images.githubusercontent.com/22845579/118562472-6ea07c00-b775-11eb-94dc-446e8d64f6b1.png)
+
 
 
 On below show minio service status
