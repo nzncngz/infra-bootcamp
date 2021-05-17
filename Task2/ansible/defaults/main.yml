@@ -23,11 +23,14 @@ minio_tune_kernel_values:
   - { name: "vm.dirty_ratio", value: 5 }
   - { name: "kernel.sched_min_granularity_ns", value: 10000000 }
   - { name: "kernel.sched_wakeup_granularity_ns", value: 15000000 }
+
 minio_instances:
  - name: service
    bind_address: 0.0.0.0
+   cluster_members: []
    bind_port: 9000
    volumes: ["/mnt/disks/data1", "/mnt/disks/data2", "/mnt/disks/data3", "/mnt/disks/data4", "/mnt/disks/data5", "/mnt/disks/data6", "/mnt/disks/data7", "/mnt/disks/data8"]
    access_key: theaccesskey
    secret_key: thesecretkey
-   log_file_name: minio-vm1.log
+   log_file_name: minio-vm.log
+
