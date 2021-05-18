@@ -33,4 +33,3 @@ minio_instances:
    access_key: theaccesskey
    secret_key: thesecretkey
    log_file_name: minio-vm.log
-
