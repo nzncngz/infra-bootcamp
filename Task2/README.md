@@ -116,6 +116,8 @@ On below show minio service status
 
 # Reference
 
+https://sysadmins.co.za/setup-a-4-node-distributed-minio-cluster/
+
 https://github.com/easkay/ansible-minio
 
 https://github.com/husnusensoy/infra-bootcamp
