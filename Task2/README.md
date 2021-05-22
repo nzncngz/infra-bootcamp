@@ -102,17 +102,26 @@ defaults/ folder in the following files:
 
 # Result
 
-List of file system
+List of file system for three nodes
+
+![filesystem_list](https://user-images.githubusercontent.com/22845579/119223672-59c04180-bb03-11eb-93bf-fa8b2c1fde0d.jpg)
+
+
 Minio service referer three endpoints(http://192.168.135.12,http://192.168.135.13,http://192.168.135.14)
-
-![minio](https://user-images.githubusercontent.com/22845579/118562472-6ea07c00-b775-11eb-94dc-446e8d64f6b1.png)
-
-
 
 On below show minio service status
 
-![service](https://user-images.githubusercontent.com/22845579/118335398-3f410380-b518-11eb-902b-26c4fc1915bd.png)
+vm1
 
+![minio(3)](https://user-images.githubusercontent.com/22845579/119224141-b4f33380-bb05-11eb-9fc1-2aef9c37c0c3.jpg)
+
+vm2
+
+![minio2](https://user-images.githubusercontent.com/22845579/119226515-381a8680-bb12-11eb-83f7-a75a3c2875c7.jpg)
+
+vm3
+
+![minio3](https://user-images.githubusercontent.com/22845579/119226558-65ffcb00-bb12-11eb-8370-dbae014cea1f.jpg)
 
 # Reference
 
