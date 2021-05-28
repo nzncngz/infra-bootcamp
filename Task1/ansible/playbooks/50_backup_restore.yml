@@ -5,7 +5,14 @@
     - ../defaults/main.yml
 
   tasks:
-
+  
+    - name: pd reset database user
+      become_method: sudo
+      become_user: postgres
+      postgresql_user: 
+        name: postgres
+        password: "{{ postgre_pass }}"
+        
     - name: "Owner chane-ge backup directory"
       become: yes
       shell: sudo chown -R vagrant:vagrant "{{ backup_directory }}"; sudo chmod -R og+X /home /home/"{{ system_user }}" "{{ backup_directory }}"
