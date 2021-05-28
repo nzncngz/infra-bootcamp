@@ -1,4 +1,5 @@
 ---
+postgre_pass: 12345
 db_user: mydbuser
 db_password: 123456789
 db_name: newdbtest
