@@ -5,7 +5,14 @@
     - ../defaults/main.yml
 
   tasks:
-    
+  
+    - name: pd reset database user
+      become_method: sudo
+      become_user: postgres
+      postgresql_user: 
+        name: postgres
+        password: "{{ postgre_user }}"
+        
     - name: "Create app database"
       postgresql_db:
         state: present
