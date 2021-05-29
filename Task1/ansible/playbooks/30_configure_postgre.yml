@@ -11,7 +11,7 @@
       become_user: postgres
       postgresql_user: 
         name: postgres
-        password: "{{ postgre_user }}"
+        password: "{{ postgre_pass }}"
         
     - name: "Create app database"
       postgresql_db:
