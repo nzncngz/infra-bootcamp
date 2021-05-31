@@ -20,7 +20,7 @@ Two vm created with Vagrant
 # Installation
 
 ``` bat  
-$ git clone https://github.com/nzncngz/nazancengiz.git
+$ git clone https://github.com/nzncngz/infra-bootcamp.git
 ```
 
 vm creating. All vm controlled ubuntu vm so login to 192.168.1.10 with ssh key
