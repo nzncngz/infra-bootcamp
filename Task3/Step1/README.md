@@ -1,4 +1,4 @@
-# Ansible Postgresql Installation Lab
+# Ansible Postgresql Table Add Data
 
 Lab environment on below
 Two vm created with Vagrant
