@@ -6,7 +6,7 @@ Four vm created with Vagrant
 
 | VM name       |   Role              | OS       |  Networking     | 
 | ------------- |   :-------------:   | -----:   | -----:          |
-| control       |   Ansible Host      | ubuntu   | 192.168.135.19  |
+| control       |   Ansible Host      | centos 7 | 192.168.135.19  |
 | vm1           |   Minio Server      | centos 7 | 192.168.135.12  |
 | vm2           |   Minio Server      | centos 7 | 192.168.135.13  |
 | vm3           |   Minio Server      | centos 7 | 192.168.135.14  |
