@@ -1,5 +1,5 @@
 ---
-- hosts: worker
+- hosts: minio
   become: yes
   vars_files:
     - ../defaults/main.yml
