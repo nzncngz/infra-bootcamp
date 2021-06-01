@@ -1,0 +1,16 @@
+---
+- name: Prepare Installation Minio Server
+  hosts: master
+  become: yes
+  tasks:
+
+     - name: Prepare Installation Minio Server-1
+       command: cp -r /etc/ansible/templates/minio-systemd-unit.j2 /etc/ansible/roles/easkay.minio/templates/minio-systemd-unit.j2
+  
+- name: Installation Minio Server
+  hosts: worker
+  become: yes
+  vars_files:
+    - ../defaults/main.yml
+  roles:
+    - easkay.minio

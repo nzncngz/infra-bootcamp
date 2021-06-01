@@ -1,0 +1,94 @@
+---
+- hosts: worker
+  become: yes
+
+  tasks:
+    
+    - name: Grab pvs
+      shell: lsscsi |grep "VBOX HARDDISK"|grep -v "0:0:0"|awk '{print $7}'
+      register: scsi_info
+    
+    
+    - name: Create a partition 
+      parted:
+        device: "{{ item }}"
+        label: gpt
+        number: 1
+        state: present
+      with_items: "{{scsi_info.stdout_lines}}"
+      register: pvs_info
+
+
+    - name: Create a new  volume group
+      lvg:
+        vg: vg_objectstorage
+        pvs: /dev/sdb1
+        state: present
+     
+    - name: Create lots of logical volumes
+      lvol:
+        vg: vg_objectstorage
+        lv: " {{ item.name }}"
+        size: "{{ item.size }}" 
+      with_items:
+        - name: backup1_lv
+          size: 640
+        - name: backup2_lv
+          size: 640
+        - name: backup3_lv
+          size: 640
+        - name: backup4_lv
+          size: 640
+        - name: backup5_lv
+          size: 640
+        - name: backup6_lv
+          size: 640
+        - name: backup7_lv
+          size: 640
+        - name: backup8_lv
+          size: 640
+
+    - name: Create xfs file systems
+      filesystem:
+        fstype: xfs
+        dev: "/dev/mapper/vg_objectstorage-{{ item }}"
+      with_items:
+        - backup1_lv
+        - backup2_lv
+        - backup3_lv
+        - backup4_lv
+        - backup5_lv
+        - backup6_lv 
+        - backup7_lv
+        - backup8_lv
+      
+    - name: Mount file system
+      mount:
+        fstype: xfs
+        path: "/mnt/disks/{{ item.dst_path }}"
+        src: "/dev/mapper/vg_objectstorage-{{ item.src_path }}"
+        opts: noatime
+        state: mounted
+      with_items:
+        - dst_path: data1 
+          src_path: backup1_lv
+        - dst_path: data2
+          src_path: backup2_lv
+        - dst_path: data3
+          src_path: backup3_lv
+        - dst_path: data4
+          src_path: backup4_lv
+        - dst_path: data5
+          src_path: backup5_lv
+        - dst_path: data6
+          src_path: backup6_lv
+        - dst_path: data7
+          src_path: backup7_lv
+        - dst_path: data8
+          src_path: backup8_lv
+ 
+          
+    - name: Rebooting...
+      reboot:
+
+    - shell: df -h

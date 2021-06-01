@@ -1,0 +1,18 @@
+---
+db_main_user: postgres
+postgre_pass: 12345
+db_user: mydbuser
+db_password: 123456789
+db_name: newdbtest
+table_name: traffic_density6
+postgres_version: 11
+postgresql_listen_addresses: 127.0.0.1
+postgresql_port: 5432
+postgresql_data_directory: /var/lib/pgsql/11/data
+postgresql_max_connections: 100
+postgresql_shared_buffers: "128MB"
+postgresql_work_mem: "4MB"
+postgresql_log_autovacuum_min_duration: -1
+postgresql_log_min_duration_statement: -1
+backup_directory: /home/vagrant/backup
+system_user: vagrant

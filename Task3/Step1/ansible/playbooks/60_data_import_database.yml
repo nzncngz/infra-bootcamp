@@ -1,0 +1,27 @@
+---
+- hosts: all
+  become: yes
+  vars_files:
+    - ../defaults/main.yml
+
+  tasks:
+    
+    - name: Download csv file
+      get_url: 
+        url: https://data.ibb.gov.tr/dataset/3ee6d744-5da2-40c8-9cd6-0e3e41f1928f/resource/db9c7fb3-e7f9-435a-92f4-1b917e357821/download/traffic_density_202001.csv
+        dest: /home/vagrant
+  
+    - name: Import script file
+      template:
+        src: ../templates/import_data.j2
+        dest: "/home/vagrant/import_data.py"
+        mode: '0644'
+
+    - name: Run script file 
+      shell:  /usr/bin/python2.7 /home/vagrant/import_data.py
+      #script: /home/vagrant/import_data.py 
+      #become_method: sudo
+      #args:
+      #  executable: python3
+
+

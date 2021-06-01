@@ -1,0 +1,30 @@
+---
+- hosts: all
+  become: yes
+  vars_files:
+    - ../defaults/main.yml
+
+  tasks:
+  
+    - name: pd reset database user
+      become_method: sudo
+      become_user: postgres
+      postgresql_user: 
+        name: postgres
+        password: "{{ postgre_pass }}"
+        
+    - name: "Owner chane-ge backup directory"
+      become: yes
+      shell: sudo chown -R vagrant:vagrant "{{ backup_directory }}"; sudo chmod -R og+X /home /home/"{{ system_user }}" "{{ backup_directory }}"
+        
+    - name: "Back up the database" 
+      become: yes
+      shell: sudo -Hiu postgres pg_dump {{ db_name }} > "{{ backup_directory }}/{{ db_name }}.dump"
+
+    - name: "Restore the database"
+      become: yes
+      become_user: postgres
+      postgresql_db:
+        state: restore
+        name: "{{ db_name }}"
+        target: "{{ backup_directory }}/{{ db_name }}.dump"

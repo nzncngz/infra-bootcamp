@@ -1,0 +1,49 @@
+from minio import Minio
+from minio.error import S3Error
+
+
+def main():
+    # Create a client with the MinIO server playground, its access key
+    # and secret key.
+    client = Minio(
+        "192.168.135.11:9000",
+        access_key="theaccesskey",
+        secret_key="thesecretkey",
+        secure=False
+    )
+    client = Minio(
+        "192.168.135.12:9000",
+        access_key="theaccesskey",
+        secret_key="thesecretkey",
+        secure=False
+    )
+    client = Minio(
+        "192.168.135.14:9000",
+        access_key="theaccesskey",
+        secret_key="thesecretkey",
+        secure=False
+    )
+    print("minio connect")
+    # Make 'asiatrip' bucket if not exist.
+    found = client.bucket_exists("{{ bucket_name }}")
+    if not found:
+        client.make_bucket("{{ bucket_name }}")
+    else:
+        print("Bucket '{{ bucket_name }}' already exists")
+
+    # Upload '/home/vagrant/traffic_density_202001.csv' as object name
+    # 'traffic_density_202001.csv' to bucket '{{ bucket_name }}'.
+    client.fput_object(
+        "{{ bucket_name }}", "traffic_density_202001.csv", "/home/vagrant/traffic_density_202001.csv",
+    )
+    print(
+        "'/home/vagrant/traffic_density_202001.csv' is successfully uploaded as "
+        "object 'traffic_density_202001.csv' to bucket '{{ bucket_name }}'."
+    )
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except S3Error as exc:
+        print("error occurred.", exc)
