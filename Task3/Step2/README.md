@@ -6,7 +6,7 @@ Four vm created with Vagrant
 
 | VM name       |   Role              | OS       |  Networking     | 
 | ------------- |   :-------------:   | -----:   | -----:          |
-| control       |   Ansible Host      | ubuntu   | 192.168.135.19  |
+| control       |   Ansible Host      | centos 7 | 192.168.135.19  |
 | vm1           |   Minio Server      | centos 7 | 192.168.135.12  |
 | vm2           |   Minio Server      | centos 7 | 192.168.135.13  |
 | vm3           |   Minio Server      | centos 7 | 192.168.135.14  |
@@ -73,30 +73,14 @@ defaults/ folder in the following files:
 | main.yml       |   define bucket name, tuning parameter,logrotate and logging for minio service
 
 
-
-
 # Result
 
-List of file system for three nodes
+Just create a bucket on a random minio server. 
 
-![filesystem_list](https://user-images.githubusercontent.com/22845579/119223672-59c04180-bb03-11eb-93bf-fa8b2c1fde0d.jpg)
+Since it works in distributed mode, buckets will be created on all 3 minio servers.(http://192.168.135.12,http://192.168.135.13,http://192.168.135.14)
 
-
-Minio service referer three endpoints(http://192.168.135.12,http://192.168.135.13,http://192.168.135.14)
-
-On below show minio service status
-
-vm1
-
-![minio(3)](https://user-images.githubusercontent.com/22845579/119224141-b4f33380-bb05-11eb-9fc1-2aef9c37c0c3.jpg)
-
-vm2
-
-![minio2](https://user-images.githubusercontent.com/22845579/119226515-381a8680-bb12-11eb-83f7-a75a3c2875c7.jpg)
-
-vm3
-
-![minio3](https://user-images.githubusercontent.com/22845579/119226558-65ffcb00-bb12-11eb-8370-dbae014cea1f.jpg)
+The other all minio service are as follows
+![minio_import_data](https://user-images.githubusercontent.com/22845579/120331275-49277c80-c2f6-11eb-89f4-0b0112e4e165.png)
 
 # Reference
 
