@@ -22,14 +22,14 @@ Four vm created with Vagrant
 # Installation
 
 ``` bat  
-$ git clone https://github.com/nzncngz/nazancengiz.git
+$ git clone https://github.com/nzncngz/infra-bootcamp.git
 ```
 
 vm creating. All vm controlled ubuntu vm so login to 192.168.1.19 with ssh key
 
 ``` bat  
 $ vagrant up &
-$ cd nazancengiz/Task2/ansible
+$ cd infra-bootcamp/Task2/ansible
 $ ssh -i .vagrant/machines/control/virtualbox/private_key vagrant@192.168.135.19
 ```
 
@@ -60,7 +60,7 @@ Now we install minio server with roles/easkay.minio. While the installation is d
 
 
 ``` bat  
-$ ansible-playbook  playbooks/40_install_minio_server.yml
+$ ansible-playbook  playbooks/cluster-setup.yml
 ```
 
 # Role Variables
@@ -85,24 +85,22 @@ This role has multiple variables. The descriptions and defaults for all these va
 | requirements.yml   |  define minio role with ansible galaxy 
 
 
-| Name                    |   Description                         
-| -------------           |   :-------------:          
-| 40_install_minio_server |   installation minio server 
+| Name                 |   Description                         
+| -------------        |   :-------------:          
+| cluster-setup.yml    |   installation minio server 
 
 
 
 defaults/ folder in the following files:
 
-| Name           |   Description                         
-| -------------  |   :-------------:          
-| main.yml       |   define tuning parameter,logrotate and logging for minio service
-
-
+| Name                                   |   Description                         
+| -------------                          |   :-------------:          
+| playbooks/roles/common/tasks/main.yml  |   define minio run work and log directory
 
 
 # Result
 
-List of file system for three nodes
+List of file system for three nodes. All minio services run cluster mode. I created a bucket on the first node and saw that this bucket was created on 3 servers at the same time.
 
 ![filesystem_list](https://user-images.githubusercontent.com/22845579/119223672-59c04180-bb03-11eb-93bf-fa8b2c1fde0d.jpg)
 
