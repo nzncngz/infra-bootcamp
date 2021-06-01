@@ -55,7 +55,7 @@ Now we install minio server with roles/easkay.minio. While the installation is d
 
 
 ``` bat  
-$ ansible-playbook  playbooks/cluster-setup.yml
+$ ansible-playbook  playbooks/40-cluster-setup.yml
 ```
 
 # Role Variables
@@ -75,14 +75,9 @@ This role has multiple variables. The descriptions and defaults for all these va
 | 30_logical_volume_management.yml |   creating file system with LVM  
 
 
-| Name               |   Description                         
-| -------------      |   :-------------:          
-| requirements.yml   |  define minio role with ansible galaxy 
-
-
 | Name                 |   Description                         
 | -------------        |   :-------------:          
-| cluster-setup.yml    |   installation minio server 
+| 40-cluster-setup.yml |   installation minio server 
 
 
 
