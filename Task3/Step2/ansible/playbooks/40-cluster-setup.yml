@@ -1,0 +1,10 @@
+---
+
+- name: Minio Setup Playbook
+  gather_facts: true
+  become: yes
+  hosts: minio
+  roles:
+    - common
+    - install
+    - service
