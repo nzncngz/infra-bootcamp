@@ -7,22 +7,11 @@ def main():
     # and secret key.
     client = Minio(
         "192.168.135.11:9000",
-        access_key="theaccesskey",
-        secret_key="thesecretkey",
+        access_key="minioadmin",
+        secret_key="minioadmin",
         secure=False
     )
-    client = Minio(
-        "192.168.135.12:9000",
-        access_key="theaccesskey",
-        secret_key="thesecretkey",
-        secure=False
-    )
-    client = Minio(
-        "192.168.135.14:9000",
-        access_key="theaccesskey",
-        secret_key="thesecretkey",
-        secure=False
-    )
+   
     print("minio connect")
     # Make 'asiatrip' bucket if not exist.
     found = client.bucket_exists("{{ bucket_name }}")
