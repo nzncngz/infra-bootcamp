@@ -50,11 +50,6 @@ The second disk must be manually added via virtual box on 3 vm with centos OS. W
 ``` bat  
 $ ansible-playbook  playbooks/30_logical_volume_management.yml
 ```
-We will define roles minio server by downloading the easkay.minio role via ansible galaxy. 
-
-``` bat  
-$ sudo ansible-galaxy install -r requirements.yml
-```
 
 Now we install minio server with roles/easkay.minio. While the installation is done tuning, logging, log rotate operations will be applied for the minio.
 
