@@ -80,8 +80,19 @@ This role has multiple variables. The descriptions and defaults for all these va
 | 40-cluster-setup.yml |   installation minio server 
 
 
+playbooks/roles/ folders:
 
-defaults/ folder in the following files:
+
+| Name               |   Description                         
+| -------------      |   :-------------:          
+| roles/install      |   installation minio service
+
+
+| Name            |   Description                         
+| -------------   |   :-------------:          
+| roles/service   |   create minio service
+
+var in the following files:
 
 | Name                                   |   Description                         
 | -------------                          |   :-------------:          
