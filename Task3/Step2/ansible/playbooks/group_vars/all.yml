@@ -1,0 +1,12 @@
+---
+
+minio_user: root
+minio_group: root
+
+# below location should be same on all servers.
+minio_data_dir: /mnt/disks/data1, /mnt/disks/data2, /mnt/disks/data3, /mnt/disks/data4, /mnt/disks/data5, /mnt/disks/data6, /mnt/disks/data7, /mnt/disks/data8
+minio_log_dir: /var/log
+
+# Don't change below vars .. untill you know what you doing.
+minio_default_install_dir: /usr/local/bin
+minio_default_config_dir: "/root/.minio"
