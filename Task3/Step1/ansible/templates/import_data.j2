@@ -1,93 +1,20 @@
-import csv, psycopg2, datetime
-
 ### constants
-DB_USER = "{{ db_main_user }}"
-DB_PASS = {{ postgre_pass }}
-DB_HOST = "{{ postgresql_listen_addresses }}"
-DB_PORT = {{ postgresql_port }}
-DB_NAME = "{{ db_name }}"
-TABLE_NAME = "{{ table_name }}"
-FILE_NAME = "/home/vagrant/traffic_density_202001.csv"
-LOG_ENABLE = True
+import pandas as pd
+from sqlalchemy import create_engine
 
+conn = "postgresql://{{ db_main_user }}:{{ postgre_pass }}@localhost:{{ postgresql_port }}/{{ db_name }}"
 
-def csv_reader(file_name):
-    data = []
-    column_names = []
-    with open(file_name) as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        line_count = 0
-        for line in csv_reader:
-            if line_count == 0:
-                column_names = line
-                line_count += 1
-            else:
-                data.append(line)
-                line_count += 1
-    return (column_names, data)
+file="{{ work_directory }}/traffic_density_202001.csv"
+mydata = pd.read_csv(file, header = 0)
 
+engine = create_engine(conn)
 
-def connect_db(db_name, host, db_user, db_pass, db_port):
-    connection = psycopg2.connect(dbname=db_name, host=host, user=db_user, password=db_pass, port=db_port)
-    return connection
-
-
-def create_table(connection, table_name, column_names):
-    cursor = connection.cursor()
-    command = 'drop table if exists {0};\ncreate table {0}('.format(table_name)
-    for column_name in column_names:
-        command += "{0} text,".format(column_name)
-    command += "id serial not null constraint {0}_pk primary key)".format(table_name)
-    cursor.execute(command)
-    cursor.close()
-
-
-
-def write_data(connection, table_name, column_names, data):
-    cursor = connection.cursor()
-
-    column_command = ""
-    for column_name in column_names:
-        column_command += "{0},".format(column_name)
-
-    for record in data:
-        command = "insert into {0}(".format(table_name)
-        command += column_command
-        command = command[:len(command) - 1] + ") values ("
-        for record_item in record:
-            command += "'{0}',".format(record_item)
-        command = command[:len(command) - 1] + ")"
-        cursor.execute(command)
-
-    cursor.close()
-
-
-def log(message):
-    if LOG_ENABLE:
-        print "{0} : {1}".format(datetime.datetime.now(),message)
-
-
-db_connection = None
-try:
-    log("CSV is reading...")
-    (column_names, data) = csv_reader(FILE_NAME)
-    log("CSV Reading is completed.")
-    log("DB connection...")
-    db_connection = connect_db(DB_NAME, DB_HOST, DB_USER, DB_PASS, DB_PORT)
-    log("DB is connected")
-    log("Table is creating...")
-    create_table(db_connection, TABLE_NAME, column_names)
-    log("Table is created")
-    log("Data is writing...")
-    write_data(db_connection, TABLE_NAME, column_names, data)
-    log("Data writing is completed")
-    db_connection.commit()
-    log("Data is committed to DB")
-
-
-except Exception as exception:
-    print "An exception occurred : {0}".format(exception)
-finally:
-    if db_connection:
-        db_connection.close()
-        log("DB connection is closed")
+# Create an iterable that will read "chunksize=1000" rows
+# at a time from the CSV file
+for df in pd.read_csv(file,names=mydata, skiprows=1, chunksize=1000):
+  df.to_sql(
+    '{{ table_name }}',
+    engine,
+    index=False,
+    if_exists='replace' # if the table already exists, append this data
+  )
