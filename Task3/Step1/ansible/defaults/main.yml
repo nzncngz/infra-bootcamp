@@ -8,6 +8,7 @@ db_name: newdbtest
 table_name: traffic_density6
 postgres_version: 11
 postgresql_listen_addresses: 127.0.0.1
+db_host: localhost
 postgresql_port: 5432
 postgresql_data_directory: /var/lib/pgsql/11/data
 postgresql_max_connections: 100
