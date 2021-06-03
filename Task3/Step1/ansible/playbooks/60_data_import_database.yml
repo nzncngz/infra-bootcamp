@@ -18,13 +18,10 @@
         mode: '0644'
 
     - name: Pandas prepare packet
-      command: yum -y update
-      command: yum -y install epel-release
-      command: yum -y install python-pip
-      command: pip install pandas
-      command: python3 -m pip install pandas
-      command: pip3 install sqlalchemy
+      command: yum -y install python-pandas
+      command: yum install python-sqlalchemy
+    
 
     - name: Run script file 
-      shell:  /usr/bin/python3 /home/vagrant/import_data.py
+      shell:  /usr/bin/python /home/vagrant/import_data.py
       #script: /home/vagrant/import_data.py
