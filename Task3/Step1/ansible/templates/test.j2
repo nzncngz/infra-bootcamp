@@ -1,0 +1,100 @@
+import csv, psycopg2, datetime
+
+# ### constants
+#DB_USER = "postgres"
+# DB_PASS = 12345
+# DB_HOST = "127.0.0.1"
+# DB_PORT = 5432
+# DB_NAME = "dilan"
+
+table_name = "test"
+# FILE_NAME = "/home/nzn/Downloads/traffic_density_202001.csv"
+
+# sql_statement = """INSERT INTO traffic_den(COLUMN, LINE) VALUES (%s,%s)"""
+#
+# list_lines = []
+
+import csv
+import psycopg2
+conn = psycopg2.connect(host="127.0.0.1", dbname="dilan", user="postgres", password="12345", port="5432")
+
+print("db connected")
+line_count = 0
+
+# def create_tables(table_name, fields):
+#     """ create tables in the PostgreSQL database"""
+#     columns = []
+#     for col in fields:
+#         columns.append(("{} {}").format((col['id']), (col['type'])))
+#
+#     query = ("CREATE TABLE {tbl_name} ( {fields} );").format(
+#         tbl_name=(table_name),
+#         fields=(', ').join(columns)
+#     )
+
+with open('/home/nzn/Downloads/traffic_density_202001.csv', 'r') as f:
+    reader = csv.reader(f, delimiter=',')
+    first_line = next(reader)
+    next(reader) # Skip the header row.
+    print (first_line)
+    #print (reader)
+
+
+
+# def create_table(table_name, first_line):
+    columns = []
+    cur = conn.cursor()
+    for col in first_line:
+        columns.append(("{} {}").format((col), ('text')))
+
+        query = ("CREATE TABLE {tbl_name} ( {first_line} );").format(
+            tbl_name=(table_name),
+            first_line=(', ').join(columns)
+        )
+    print (query)
+    print ("table created")
+
+
+    try:
+        # read the connection parameters
+        cur = conn.cursor()
+        columns2 = []
+        with open('/home/nzn/Downloads/traffic_density_202001.csv', 'r') as f:
+            reader = csv.reader(f, delimiter=',')
+            next(reader)
+
+        for col in reader:
+            columns2.append(("'{}'").format(col))
+            query_insert = ("INSERT INTO {tbl_name} VALUES ( {reader} );").format(
+                    tbl_name=(table_name),
+                    reader=(', ').join(columns2)
+                )
+            # connect to the PostgreSQL server
+            cur.execute(query_insert,col)
+            conn.commit()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+    # for  col in reader:
+    #  columns2.append(("'{}'").format(col))
+    #  query_insert = ("INSERT INTO {tbl_name} VALUES ( {reader} );").format(
+    #        tbl_name=(table_name),
+    #        reader=(', ').join(columns2)
+
+     # line_count += 1
+     # if line_count == 9:
+     #     break
+
+
+    # try:
+    #     # read the connection parameters
+    #     cur = conn.cursor()
+    #     # connect to the PostgreSQL server
+    #     cur.execute(query_insert)
+    #     # close communication with the PostgreSQL database server
+    #     cur.close()
+    #     # commit the changes
+    #     conn.commit()
