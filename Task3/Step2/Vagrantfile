@@ -42,7 +42,7 @@ Vagrant.configure(2) do |config|
     end 
     h.vm.hostname = "vm2"
     h.vm.network "private_network", ip: "192.168.135.13"
-    h.vm.network "forwarded_port", guest: 22, host: "2202", id: "ssh"
+    h.vm.network "forwarded_port", guest: 22, host: "2204", id: "ssh"
     h.vm.provision :shell, inline: 'test -e /usr/bin/python3 || (yum install -y python3)'
   end	
 
@@ -54,7 +54,7 @@ Vagrant.configure(2) do |config|
     end 
     h.vm.hostname = "vm3"
     h.vm.network "private_network", ip: "192.168.135.14"
-    h.vm.network "forwarded_port", guest: 22, host: "2202", id: "ssh"
+    h.vm.network "forwarded_port", guest: 22, host: "2206", id: "ssh"
     h.vm.provision :shell, inline: 'test -e /usr/bin/python3 || (yum install -y python3)'
   end	
 	
