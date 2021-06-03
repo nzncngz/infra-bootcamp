@@ -1,19 +1,38 @@
-import pandas as pd
-from sqlalchemy import create_engine
-conn = "postgresql://postgres:12345@localhost:5432/dilan"
-table_name = "test3"
+from minio import Minio
+from minio.error import S3Error
 
-file="/home/nzn/PycharmProjects/test1/venv/minio-py/tests/test.csv"
-mydata = pd.read_csv(file, header = 0)
 
-engine = create_engine(conn)
+def main():
+    # Create a client with the MinIO server playground, its access key
+    # and secret key.
+    client = Minio(
+        "192.168.135.12:9000",
+        access_key="minioadmin",
+        secret_key="minioadmin",
+        secure=False
+    )
+   
+    print("minio connect")
+    # Make 'asiatrip' bucket if not exist.
+    found = client.bucket_exists("{{ bucket_name }}")
+    if not found:
+        client.make_bucket("{{ bucket_name }}")
+    else:
+        print("Bucket '{{ bucket_name }}' already exists")
 
-# Create an iterable that will read "chunksize=1000" rows
-# at a time from the CSV file
-for df in pd.read_csv(file,names=mydata, skiprows=1, chunksize=1000):
-  df.to_sql(
-    'test3',
-    engine,
-    index=False,
-    if_exists='replace' # if the table already exists, append this data
-  )
+    # Upload '/home/vagrant/traffic_density_202001.csv' as object name
+    # 'traffic_density_202001.csv' to bucket '{{ bucket_name }}'.
+    client.fput_object(
+        "{{ bucket_name }}", "traffic_density_202001.csv", "/home/vagrant/traffic_density_202001.csv",
+    )
+    print(
+        "'/home/vagrant/traffic_density_202001.csv' is successfully uploaded as "
+        "object 'traffic_density_202001.csv' to bucket '{{ bucket_name }}'."
+    )
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except S3Error as exc:
+        print("error occurred.", exc)
