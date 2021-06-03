@@ -2,6 +2,7 @@
 db_main_user: postgres
 work_directory: /home/vagrant
 postgre_pass: 12345
+db_host: 127.0.0.1
 db_user: mydbuser
 db_password: 123456789
 db_name: newdbtest
